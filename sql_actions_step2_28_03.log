@@ -1,0 +1,328 @@
+[1, 14:05:27] DROP DATABASE `final_internet_access`: Running...
+[1, 14:05:27] DROP DATABASE `final_internet_access`: 6 row(s) affected
+[2, 14:05:30] DROP DATABASE `internet_access_new`: Running...
+[2, 14:05:30] DROP DATABASE `internet_access_new`: 1 row(s) affected
+[3, 14:05:51] SET GLOBAL general_log = 'ON': Running...
+[3, 14:05:51] SET GLOBAL general_log = 'ON': 0 row(s) affected
+[4, 14:06:04] Apply changes to internet_access: Applying object changes ...
+[4, 14:06:05] Applying changes to internet_access...: 
+[4, 14:06:05] : Changes applied to internet_access
+[4, 14:06:06] Apply changes to internet_access: Changes applied
+[5, 14:06:23] CREATE TABLE `countries` (
+  `Code` varchar(10) NOT NULL,
+  `Country_name` varchar(50) NOT NULL,
+  `Internet_arrival_year` year NOT NULL,
+  PRIMARY KEY (`Code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci: Running...
+[5, 14:06:23] CREATE TABLE `countries` (
+  `Code` varchar(10) NOT NULL,
+  `Country_name` varchar(50) NOT NULL,
+  `Internet_arrival_year` year NOT NULL,
+  PRIMARY KEY (`Code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci: 0 row(s) affected
+[6, 14:07:29] SHOW SESSION VARIABLES LIKE 'lower_case_table_names': Executing 
+[6, 14:07:29] SHOW SESSION VARIABLES LIKE 'lower_case_table_names': OK
+[7, 14:07:29] SHOW DATABASES: Executing 
+[7, 14:07:29] SHOW DATABASES: OK
+[8, 14:07:30] SHOW SESSION VARIABLES LIKE 'lower_case_table_names': Executing 
+[8, 14:07:30] SHOW SESSION VARIABLES LIKE 'lower_case_table_names': OK
+[9, 14:07:30] SHOW COLUMNS FROM `internet_access`.`countries`: Executing 
+[9, 14:07:30] SHOW COLUMNS FROM `internet_access`.`countries`: OK
+[10, 14:07:35] PREPARE stmt FROM 'INSERT INTO `internet_access`.`countries` (`Code`,`Country_name`,`Internet_arrival_year`) VALUES(?,?,?)': Executing 
+[10, 14:07:35] PREPARE stmt FROM 'INSERT INTO `internet_access`.`countries` (`Code`,`Country_name`,`Internet_arrival_year`) VALUES(?,?,?)': OK
+[11, 14:07:37] DEALLOCATE PREPARE stmt: Executing 
+[11, 14:07:37] DEALLOCATE PREPARE stmt: OK
+[12, 14:08:25] CREATE TABLE `community` (
+  `Code` varchar(10) NOT NULL,
+  `Country_name` varchar(50) DEFAULT NULL,
+  `Year` year NOT NULL,
+  `Fixed_telephone_subscriptions` float DEFAULT NULL,
+  `Fixed_broadband_subscriptions` float DEFAULT NULL,
+  `Mobile_cellular_subscriptions` float DEFAULT NULL,
+  `Number_of_Internet_users` float DEFAULT NULL,
+  PRIMARY KEY (`Code`,`Year`),
+  CONSTRAINT `community_ibfk_1` FOREIGN KEY (`Code`) REFERENCES `countries` (`Code`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `policy` (
+  `Code` varchar(10) NOT NULL,
+  `Country_name` varchar(50) DEFAULT NULL,
+  `Year` year NOT NULL,
+  `Democracy_estimate` float DEFAULT NULL,
+  `Democracy_upper` float DEFAULT NULL,
+  `Democracy_lower` float DEFAULT NULL,
+  `Freedom_estimate` float DEFAULT NULL,
+  `Freedom_upper` float DEFAULT NULL,
+  `Freedom_lower` float DEFAULT NULL,
+  PRIMARY KEY (`Code`,`Year`),
+  CONSTRAINT `policy_ibfk_1` FOREIGN KEY (`Code`) REFERENCES `countries` (`Code`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `isp` (
+  `Code` varchar(10) NOT NULL,
+  `Country_name` varchar(50) DEFAULT NULL,
+  `Year` year NOT NULL,
+  `Mobile_cellular_subscriptions` float DEFAULT NULL,
+  `Landline_phone_subscriptions` float DEFAULT NULL,
+  `Landline_internet_subscriptions` float DEFAULT NULL,
+  PRIMARY KEY (`Code`,`Year`),
+  CONSTRAINT `isp_ibfk_1` FOREIGN KEY (`Code`) REFERENCES `countries` (`Code`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+
+CREATE TABLE `government` (
+  `Code` varchar(10) NOT NULL,
+  `Country_name` varchar(50) DEFAULT NULL,
+  `Year` year NOT NULL,
+  `GDP` float DEFAULT NULL,
+  `Productivity` float DEFAULT NULL,
+  `Government_Expenditure` float DEFAULT NULL,
+  PRIMARY KEY (`Code`,`Year`),
+  CONSTRAINT `government_ibfk_1` FOREIGN KEY (`Code`) REFERENCES `countries` (`Code`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+
+CREATE TABLE `infrastructure` (
+  `Code` varchar(10) NOT NULL,
+  `Country_name` varchar(50) DEFAULT NULL,
+  `Year` year NOT NULL,
+  `Internet_users` float DEFAULT NULL,
+  `Urban_population` float DEFAULT NULL,
+  `Electricity_access_urban` float DEFAULT NULL,
+  `Electricity_access_rural` float DEFAULT NULL,
+  PRIMARY KEY (`Code`,`Year`),
+  CONSTRAINT `infrastructure_ibfk_1` FOREIGN KEY (`Code`) REFERENCES `countries` (`Code`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci: Running...
+[12, 14:08:25] CREATE TABLE `community` (
+  `Code` varchar(10) NOT NULL,
+  `Country_name` varchar(50) DEFAULT NULL,
+  `Year` year NOT NULL,
+  `Fixed_telephone_subscriptions` float DEFAULT NULL,
+  `Fixed_broadband_subscriptions` float DEFAULT NULL,
+  `Mobile_cellular_subscriptions` float DEFAULT NULL,
+  `Number_of_Internet_users` float DEFAULT NULL,
+  PRIMARY KEY (`Code`,`Year`),
+  CONSTRAINT `community_ibfk_1` FOREIGN KEY (`Code`) REFERENCES `countries` (`Code`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `policy` (
+  `Code` varchar(10) NOT NULL,
+  `Country_name` varchar(50) DEFAULT NULL,
+  `Year` year NOT NULL,
+  `Democracy_estimate` float DEFAULT NULL,
+  `Democracy_upper` float DEFAULT NULL,
+  `Democracy_lower` float DEFAULT NULL,
+  `Freedom_estimate` float DEFAULT NULL,
+  `Freedom_upper` float DEFAULT NULL,
+  `Freedom_lower` float DEFAULT NULL,
+  PRIMARY KEY (`Code`,`Year`),
+  CONSTRAINT `policy_ibfk_1` FOREIGN KEY (`Code`) REFERENCES `countries` (`Code`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `isp` (
+  `Code` varchar(10) NOT NULL,
+  `Country_name` varchar(50) DEFAULT NULL,
+  `Year` year NOT NULL,
+  `Mobile_cellular_subscriptions` float DEFAULT NULL,
+  `Landline_phone_subscriptions` float DEFAULT NULL,
+  `Landline_internet_subscriptions` float DEFAULT NULL,
+  PRIMARY KEY (`Code`,`Year`),
+  CONSTRAINT `isp_ibfk_1` FOREIGN KEY (`Code`) REFERENCES `countries` (`Code`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+
+CREATE TABLE `government` (
+  `Code` varchar(10) NOT NULL,
+  `Country_name` varchar(50) DEFAULT NULL,
+  `Year` year NOT NULL,
+  `GDP` float DEFAULT NULL,
+  `Productivity` float DEFAULT NULL,
+  `Government_Expenditure` float DEFAULT NULL,
+  PRIMARY KEY (`Code`,`Year`),
+  CONSTRAINT `government_ibfk_1` FOREIGN KEY (`Code`) REFERENCES `countries` (`Code`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+
+CREATE TABLE `infrastructure` (
+  `Code` varchar(10) NOT NULL,
+  `Country_name` varchar(50) DEFAULT NULL,
+  `Year` year NOT NULL,
+  `Internet_users` float DEFAULT NULL,
+  `Urban_population` float DEFAULT NULL,
+  `Electricity_access_urban` float DEFAULT NULL,
+  `Electricity_access_rural` float DEFAULT NULL,
+  PRIMARY KEY (`Code`,`Year`),
+  CONSTRAINT `infrastructure_ibfk_1` FOREIGN KEY (`Code`) REFERENCES `countries` (`Code`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci: Error Code: 1064. You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CREATE TABLE `policy` (
+  `Code` varchar(10) NOT NULL,
+  `Country_name` varchar(' at line 13
+[13, 14:09:12] CREATE TABLE `community` (
+  `Code` varchar(10) NOT NULL,
+  `Country_name` varchar(50) DEFAULT NULL,
+  `Year` year NOT NULL,
+  `Fixed_telephone_subscriptions` float DEFAULT NULL,
+  `Fixed_broadband_subscriptions` float DEFAULT NULL,
+  `Mobile_cellular_subscriptions` float DEFAULT NULL,
+  `Number_of_Internet_users` float DEFAULT NULL,
+  PRIMARY KEY (`Code`,`Year`),
+  CONSTRAINT `community_ibfk_1` FOREIGN KEY (`Code`) REFERENCES `countries` (`Code`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci: Running...
+[13, 14:09:12] CREATE TABLE `community` (
+  `Code` varchar(10) NOT NULL,
+  `Country_name` varchar(50) DEFAULT NULL,
+  `Year` year NOT NULL,
+  `Fixed_telephone_subscriptions` float DEFAULT NULL,
+  `Fixed_broadband_subscriptions` float DEFAULT NULL,
+  `Mobile_cellular_subscriptions` float DEFAULT NULL,
+  `Number_of_Internet_users` float DEFAULT NULL,
+  PRIMARY KEY (`Code`,`Year`),
+  CONSTRAINT `community_ibfk_1` FOREIGN KEY (`Code`) REFERENCES `countries` (`Code`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci: 0 row(s) affected
+[14, 14:09:12] CREATE TABLE `policy` (
+  `Code` varchar(10) NOT NULL,
+  `Country_name` varchar(50) DEFAULT NULL,
+  `Year` year NOT NULL,
+  `Democracy_estimate` float DEFAULT NULL,
+  `Democracy_upper` float DEFAULT NULL,
+  `Democracy_lower` float DEFAULT NULL,
+  `Freedom_estimate` float DEFAULT NULL,
+  `Freedom_upper` float DEFAULT NULL,
+  `Freedom_lower` float DEFAULT NULL,
+  PRIMARY KEY (`Code`,`Year`),
+  CONSTRAINT `policy_ibfk_1` FOREIGN KEY (`Code`) REFERENCES `countries` (`Code`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci: Running...
+[14, 14:09:12] CREATE TABLE `policy` (
+  `Code` varchar(10) NOT NULL,
+  `Country_name` varchar(50) DEFAULT NULL,
+  `Year` year NOT NULL,
+  `Democracy_estimate` float DEFAULT NULL,
+  `Democracy_upper` float DEFAULT NULL,
+  `Democracy_lower` float DEFAULT NULL,
+  `Freedom_estimate` float DEFAULT NULL,
+  `Freedom_upper` float DEFAULT NULL,
+  `Freedom_lower` float DEFAULT NULL,
+  PRIMARY KEY (`Code`,`Year`),
+  CONSTRAINT `policy_ibfk_1` FOREIGN KEY (`Code`) REFERENCES `countries` (`Code`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci: 0 row(s) affected
+[15, 14:09:12] CREATE TABLE `isp` (
+  `Code` varchar(10) NOT NULL,
+  `Country_name` varchar(50) DEFAULT NULL,
+  `Year` year NOT NULL,
+  `Mobile_cellular_subscriptions` float DEFAULT NULL,
+  `Landline_phone_subscriptions` float DEFAULT NULL,
+  `Landline_internet_subscriptions` float DEFAULT NULL,
+  PRIMARY KEY (`Code`,`Year`),
+  CONSTRAINT `isp_ibfk_1` FOREIGN KEY (`Code`) REFERENCES `countries` (`Code`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci: Running...
+[15, 14:09:12] CREATE TABLE `isp` (
+  `Code` varchar(10) NOT NULL,
+  `Country_name` varchar(50) DEFAULT NULL,
+  `Year` year NOT NULL,
+  `Mobile_cellular_subscriptions` float DEFAULT NULL,
+  `Landline_phone_subscriptions` float DEFAULT NULL,
+  `Landline_internet_subscriptions` float DEFAULT NULL,
+  PRIMARY KEY (`Code`,`Year`),
+  CONSTRAINT `isp_ibfk_1` FOREIGN KEY (`Code`) REFERENCES `countries` (`Code`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci: 0 row(s) affected
+[16, 14:09:12] CREATE TABLE `government` (
+  `Code` varchar(10) NOT NULL,
+  `Country_name` varchar(50) DEFAULT NULL,
+  `Year` year NOT NULL,
+  `GDP` float DEFAULT NULL,
+  `Productivity` float DEFAULT NULL,
+  `Government_Expenditure` float DEFAULT NULL,
+  PRIMARY KEY (`Code`,`Year`),
+  CONSTRAINT `government_ibfk_1` FOREIGN KEY (`Code`) REFERENCES `countries` (`Code`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci: Running...
+[16, 14:09:12] CREATE TABLE `government` (
+  `Code` varchar(10) NOT NULL,
+  `Country_name` varchar(50) DEFAULT NULL,
+  `Year` year NOT NULL,
+  `GDP` float DEFAULT NULL,
+  `Productivity` float DEFAULT NULL,
+  `Government_Expenditure` float DEFAULT NULL,
+  PRIMARY KEY (`Code`,`Year`),
+  CONSTRAINT `government_ibfk_1` FOREIGN KEY (`Code`) REFERENCES `countries` (`Code`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci: 0 row(s) affected
+[17, 14:09:12] CREATE TABLE `infrastructure` (
+  `Code` varchar(10) NOT NULL,
+  `Country_name` varchar(50) DEFAULT NULL,
+  `Year` year NOT NULL,
+  `Internet_users` float DEFAULT NULL,
+  `Urban_population` float DEFAULT NULL,
+  `Electricity_access_urban` float DEFAULT NULL,
+  `Electricity_access_rural` float DEFAULT NULL,
+  PRIMARY KEY (`Code`,`Year`),
+  CONSTRAINT `infrastructure_ibfk_1` FOREIGN KEY (`Code`) REFERENCES `countries` (`Code`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci: Running...
+[17, 14:09:12] CREATE TABLE `infrastructure` (
+  `Code` varchar(10) NOT NULL,
+  `Country_name` varchar(50) DEFAULT NULL,
+  `Year` year NOT NULL,
+  `Internet_users` float DEFAULT NULL,
+  `Urban_population` float DEFAULT NULL,
+  `Electricity_access_urban` float DEFAULT NULL,
+  `Electricity_access_rural` float DEFAULT NULL,
+  PRIMARY KEY (`Code`,`Year`),
+  CONSTRAINT `infrastructure_ibfk_1` FOREIGN KEY (`Code`) REFERENCES `countries` (`Code`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci: 0 row(s) affected
+[18, 14:09:47] SHOW SESSION VARIABLES LIKE 'lower_case_table_names': Executing 
+[18, 14:09:47] SHOW SESSION VARIABLES LIKE 'lower_case_table_names': OK
+[19, 14:09:47] SHOW DATABASES: Executing 
+[19, 14:09:47] SHOW DATABASES: OK
+[20, 14:09:48] SHOW SESSION VARIABLES LIKE 'lower_case_table_names': Executing 
+[20, 14:09:48] SHOW SESSION VARIABLES LIKE 'lower_case_table_names': OK
+[21, 14:09:48] SHOW COLUMNS FROM `internet_access`.`community`: Executing 
+[21, 14:09:48] SHOW COLUMNS FROM `internet_access`.`community`: OK
+[22, 14:09:53] PREPARE stmt FROM 'INSERT INTO `internet_access`.`community` (`Code`,`Country_name`,`Year`,`Fixed_telephone_subscriptions`,`Fixed_broadband_subscriptions`,`Mobile_cellular_subscriptions`,`Number_of_Internet_users`) VALUES(?,?,?,?,?,?,?)': Executing 
+[22, 14:09:53] PREPARE stmt FROM 'INSERT INTO `internet_access`.`community` (`Code`,`Country_name`,`Year`,`Fixed_telephone_subscriptions`,`Fixed_broadband_subscriptions`,`Mobile_cellular_subscriptions`,`Number_of_Internet_users`) VALUES(?,?,?,?,?,?,?)': OK
+[23, 14:09:56] DEALLOCATE PREPARE stmt: Executing 
+[23, 14:09:56] DEALLOCATE PREPARE stmt: OK
+[24, 14:10:23] SHOW SESSION VARIABLES LIKE 'lower_case_table_names': Executing 
+[24, 14:10:24] SHOW SESSION VARIABLES LIKE 'lower_case_table_names': OK
+[25, 14:10:24] SHOW DATABASES: Executing 
+[25, 14:10:24] SHOW DATABASES: OK
+[26, 14:10:25] SHOW SESSION VARIABLES LIKE 'lower_case_table_names': Executing 
+[26, 14:10:25] SHOW SESSION VARIABLES LIKE 'lower_case_table_names': OK
+[27, 14:10:25] SHOW COLUMNS FROM `internet_access`.`government`: Executing 
+[27, 14:10:25] SHOW COLUMNS FROM `internet_access`.`government`: OK
+[28, 14:10:29] PREPARE stmt FROM 'INSERT INTO `internet_access`.`government` (`Code`,`Country_name`,`Year`,`GDP`,`Productivity`,`Government_Expenditure`) VALUES(?,?,?,?,?,?)': Executing 
+[28, 14:10:29] PREPARE stmt FROM 'INSERT INTO `internet_access`.`government` (`Code`,`Country_name`,`Year`,`GDP`,`Productivity`,`Government_Expenditure`) VALUES(?,?,?,?,?,?)': OK
+[29, 14:11:34] DEALLOCATE PREPARE stmt: Executing 
+[29, 14:11:34] DEALLOCATE PREPARE stmt: OK
+[30, 14:12:42] SHOW SESSION VARIABLES LIKE 'lower_case_table_names': Executing 
+[30, 14:12:42] SHOW SESSION VARIABLES LIKE 'lower_case_table_names': OK
+[31, 14:12:42] SHOW DATABASES: Executing 
+[31, 14:12:42] SHOW DATABASES: OK
+[32, 14:12:43] SHOW SESSION VARIABLES LIKE 'lower_case_table_names': Executing 
+[32, 14:12:43] SHOW SESSION VARIABLES LIKE 'lower_case_table_names': OK
+[33, 14:12:43] SHOW COLUMNS FROM `internet_access`.`infrastructure`: Executing 
+[33, 14:12:43] SHOW COLUMNS FROM `internet_access`.`infrastructure`: OK
+[34, 14:12:48] PREPARE stmt FROM 'INSERT INTO `internet_access`.`infrastructure` (`Code`,`Country_name`,`Year`,`Internet_users`,`Urban_population`,`Electricity_access_urban`,`Electricity_access_rural`) VALUES(?,?,?,?,?,?,?)': Executing 
+[34, 14:12:48] PREPARE stmt FROM 'INSERT INTO `internet_access`.`infrastructure` (`Code`,`Country_name`,`Year`,`Internet_users`,`Urban_population`,`Electricity_access_urban`,`Electricity_access_rural`) VALUES(?,?,?,?,?,?,?)': OK
+[35, 14:14:12] DEALLOCATE PREPARE stmt: Executing 
+[35, 14:14:12] DEALLOCATE PREPARE stmt: OK
+[36, 14:14:50] SHOW SESSION VARIABLES LIKE 'lower_case_table_names': Executing 
+[36, 14:14:50] SHOW SESSION VARIABLES LIKE 'lower_case_table_names': OK
+[37, 14:14:50] SHOW DATABASES: Executing 
+[37, 14:14:50] SHOW DATABASES: OK
+[38, 14:14:51] SHOW SESSION VARIABLES LIKE 'lower_case_table_names': Executing 
+[38, 14:14:51] SHOW SESSION VARIABLES LIKE 'lower_case_table_names': OK
+[39, 14:14:51] SHOW COLUMNS FROM `internet_access`.`isp`: Executing 
+[39, 14:14:51] SHOW COLUMNS FROM `internet_access`.`isp`: OK
+[40, 14:14:54] PREPARE stmt FROM 'INSERT INTO `internet_access`.`isp` (`Code`,`Country_name`,`Year`,`Mobile_cellular_subscriptions`,`Landline_phone_subscriptions`,`Landline_internet_subscriptions`) VALUES(?,?,?,?,?,?)': Executing 
+[40, 14:14:54] PREPARE stmt FROM 'INSERT INTO `internet_access`.`isp` (`Code`,`Country_name`,`Year`,`Mobile_cellular_subscriptions`,`Landline_phone_subscriptions`,`Landline_internet_subscriptions`) VALUES(?,?,?,?,?,?)': OK
+[41, 14:15:44] DEALLOCATE PREPARE stmt: Executing 
+[41, 14:15:44] DEALLOCATE PREPARE stmt: OK
+[42, 14:16:35] SHOW SESSION VARIABLES LIKE 'lower_case_table_names': Executing 
+[42, 14:16:35] SHOW SESSION VARIABLES LIKE 'lower_case_table_names': OK
+[43, 14:16:35] SHOW DATABASES: Executing 
+[43, 14:16:35] SHOW DATABASES: OK
+[44, 14:16:42] SHOW SESSION VARIABLES LIKE 'lower_case_table_names': Executing 
+[44, 14:16:42] SHOW SESSION VARIABLES LIKE 'lower_case_table_names': OK
+[45, 14:16:42] SHOW COLUMNS FROM `internet_access`.`policy`: Executing 
+[45, 14:16:43] SHOW COLUMNS FROM `internet_access`.`policy`: OK
+[46, 14:16:48] PREPARE stmt FROM 'INSERT INTO `internet_access`.`policy` (`Code`,`Country_name`,`Year`,`Democracy_estimate`,`Democracy_upper`,`Democracy_lower`,`Freedom_estimate`,`Freedom_upper`,`Freedom_lower`) VALUES(?,?,?,?,?,?,?,?,?)': Executing 
+[46, 14:16:48] PREPARE stmt FROM 'INSERT INTO `internet_access`.`policy` (`Code`,`Country_name`,`Year`,`Democracy_estimate`,`Democracy_upper`,`Democracy_lower`,`Freedom_estimate`,`Freedom_upper`,`Freedom_lower`) VALUES(?,?,?,?,?,?,?,?,?)': OK
+[47, 14:18:19] DEALLOCATE PREPARE stmt: Executing 
+[47, 14:18:19] DEALLOCATE PREPARE stmt: OK
