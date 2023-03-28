@@ -1,0 +1,32 @@
+[1, 14:01:42] Apply changes to internet_access_new: Applying object changes ...
+[1, 14:01:43] Applying changes to internet_access_new...: 
+[1, 14:01:43] : Changes applied to internet_access_new
+[1, 14:01:45] Apply changes to internet_access_new: Changes applied
+[2, 14:02:48] CREATE TABLE `countries` (
+  `Code` varchar(10) NOT NULL,
+  `Country_name` varchar(50) NOT NULL,
+  `Internet_arrival_year` year NOT NULL,
+  PRIMARY KEY (`Code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci: Running...
+[2, 14:02:48] CREATE TABLE `countries` (
+  `Code` varchar(10) NOT NULL,
+  `Country_name` varchar(50) NOT NULL,
+  `Internet_arrival_year` year NOT NULL,
+  PRIMARY KEY (`Code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci: 0 row(s) affected
+[3, 14:03:18] SET GLOBAL general_log = 'ON': Running...
+[3, 14:03:19] SET GLOBAL general_log = 'ON': 0 row(s) affected
+[4, 14:03:33] DROP TABLE `internet_access_new`.`countries`: Running...
+[4, 14:03:33] DROP TABLE `internet_access_new`.`countries`: 0 row(s) affected
+[5, 14:03:36] CREATE TABLE `countries` (
+  `Code` varchar(10) NOT NULL,
+  `Country_name` varchar(50) NOT NULL,
+  `Internet_arrival_year` year NOT NULL,
+  PRIMARY KEY (`Code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci: Running...
+[5, 14:03:36] CREATE TABLE `countries` (
+  `Code` varchar(10) NOT NULL,
+  `Country_name` varchar(50) NOT NULL,
+  `Internet_arrival_year` year NOT NULL,
+  PRIMARY KEY (`Code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci: 0 row(s) affected
