@@ -1,0 +1,166 @@
+
+[8, 14:32:12] CREATE procedure findByIso(in iso varchar(8)) //TO CREATE A TEMPLATE FOR PROCEDURES AND CHECK İF İTS WORK
+BEGIN
+	select * from community where Code = iso ;
+END: 0 row(s) affected
+[9, 14:32:53] call findByIso("US"): Running...
+[9, 14:32:53] call findByIso("US"): Fetching...
+[9, 14:32:53] call findByIso("US"): 0 row(s) returned //WRONG SYNTAX SHOULD BE "USA"
+[11, 14:33:14] call findByIso("AFG"): Running...//RETURNED AFGANISTHAN
+[11, 14:33:14] call findByIso("AFG"): Fetching...
+[11, 14:33:14] call findByIso("AFG"): 1 row(s) returned
+[12, 14:33:40] call findByIso("USA"): Running...//RETURNED United States America
+[12, 14:33:40] call findByIso("USA"): Fetching...
+[12, 14:33:40] call findByIso("USA"): 1 row(s) returned
+[13, 14:34:33] Apply changes to findComByIso: Applying object changes ...
+[13, 14:34:35] Applying changes to findComByIso...: 
+[13, 14:34:35] : Changes applied to findComByIso
+[13, 14:34:36] Apply changes to findComByIso: Changes applied
+
+[17, 14:40:31] DROP PROCEDURE `internet_access`.`findByIso`: Running... //DROP PROCEDURE NO MORE NEED
+[17, 14:40:31] DROP PROCEDURE `internet_access`.`findByIso`: 0 row(s) affected
+
+
+[19, 14:43:08] create procedure findInternetUsersByIsoAndYear(in iso VARCHAR(8), in ye INT)//RETURNS THE INTERNET INTERNET USERS WITH YEAR AND ISO_CODE
+begin
+	select * from infrastructure where Code = iso and Year = ye;
+end: Running...
+
+
+[22, 14:44:03] call findInternetUsersByIsoAndYear("ABW",1996): Running...
+[22, 14:44:03] call findInternetUsersByIsoAndYear("ABW",1996): Fetching...
+[22, 14:44:03] call findInternetUsersByIsoAndYear("ABW",1996): 1 row(s) returned // 0
+
+[32, 14:46:15] call findInternetUsersByIsoAndYear("GBR",1996): Running...
+[32, 14:46:15] call findInternetUsersByIsoAndYear("GBR",1996): Fetching...
+[32, 14:46:15] call findInternetUsersByIsoAndYear("GBR",1996): 1 row(s) returned //4.123... returned
+
+
+[9, 13:26:28] SELECT * FROM step3.most_free_and_democratic_countries //returned DENMARK
+LIMIT 0, 1000
+: Running...
+[9, 13:26:28] SELECT * FROM step3.most_free_and_democratic_countries
+LIMIT 0, 1000
+: Fetching...
+[9, 13:26:29] SELECT * FROM step3.most_free_and_democratic_countries
+LIMIT 0, 1000
+: 88 row(s) returned
+[10, 13:26:40] SELECT * FROM step3.stats_for_highest_internet_usage_year_by_country //2020 FOR MOST OF THE COUNTRIES
+LIMIT 0, 1000
+: Running...
+[10, 13:26:40] SELECT * FROM step3.stats_for_highest_internet_usage_year_by_country
+LIMIT 0, 1000
+: Fetching...
+[10, 13:26:40] SELECT * FROM step3.stats_for_highest_internet_usage_year_by_country
+LIMIT 0, 1000
+: 158 row(s) returned
+[11, 13:27:01] SELECT * FROM step3.stats_for_lowest_internet_usage_year_by_country //BEFORE 2000S FOR MOST BUT 2013 FOR SUDAN
+LIMIT 0, 1000
+: Running...
+[11, 13:27:01] SELECT * FROM step3.stats_for_lowest_internet_usage_year_by_country
+LIMIT 0, 1000
+: Fetching...
+[11, 13:27:01] SELECT * FROM step3.stats_for_lowest_internet_usage_year_by_country
+LIMIT 0, 1000
+: 172 row(s) returned
+
+[26, 13:42:42] CREATE TRIGGER `tr_countries_before_insert` BEFORE INSERT ON `countries` FOR EACH ROW
+BEGIN
+    IF NEW.`Internet_arrival_year` < 1982 THEN
+        SET NEW.`Internet_arrival_year` = 1982;
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The Internet_arrival_year value was fixed to the minimum value of 1982';
+    ELSEIF NEW.`Internet_arrival_year` > 2017 THEN
+        SET NEW.`Internet_arrival_year` = 2017;
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The Internet_arrival_year value was fixed to the maximum value of 2017';
+    END IF;
+END: Running...
+[26, 13:42:42] CREATE TRIGGER `tr_countries_before_insert` BEFORE INSERT ON `countries` FOR EACH ROW
+BEGIN
+    IF NEW.`Internet_arrival_year` < 1982 THEN
+        SET NEW.`Internet_arrival_year` = 1982;
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The Internet_arrival_year value was fixed to the minimum value of 1982';
+    ELSEIF NEW.`Internet_arrival_year` > 2017 THEN
+        SET NEW.`Internet_arrival_year` = 2017;
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The Internet_arrival_year value was fixed to the maximum value of 2017';
+    END IF;
+END: 0 row(s) affected
+[27, 13:42:42] CREATE TRIGGER `tr_countries_before_update` BEFORE UPDATE ON `countries` FOR EACH ROW
+BEGIN
+    IF NEW.`Internet_arrival_year` < 1982 THEN
+        SET NEW.`Internet_arrival_year` = 1982;
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The Internet_arrival_year value was fixed to the minimum value of 1982';
+    ELSEIF NEW.`Internet_arrival_year` > 2017 THEN
+        SET NEW.`Internet_arrival_year` = 2017;
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The Internet_arrival_year value was fixed to the maximum value of 2017';
+    END IF;
+END: Running...
+[27, 13:42:42] CREATE TRIGGER `tr_countries_before_update` BEFORE UPDATE ON `countries` FOR EACH ROW
+BEGIN
+    IF NEW.`Internet_arrival_year` < 1982 THEN
+        SET NEW.`Internet_arrival_year` = 1982;
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The Internet_arrival_year value was fixed to the minimum value of 1982';
+    ELSEIF NEW.`Internet_arrival_year` > 2017 THEN
+        SET NEW.`Internet_arrival_year` = 2017;
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The Internet_arrival_year value was fixed to the maximum value of 2017';
+    END IF;
+END: 0 row(s) affected
+[
+[29, 13:45:21] create procedure findInternetUsersByIsoAndYear(in iso VARCHAR(8), in ye INT)
+begin
+	select Internet_users from infrastructure where Code = iso and Year = ye;
+end: Running...
+[29, 13:45:21] create procedure findInternetUsersByIsoAndYear(in iso VARCHAR(8), in ye INT)
+begin
+	select Internet_users from infrastructure where Code = iso and Year = ye;
+end: 0 row(s) affected
+[30, 13:46:11] SELECT * FROM step3.countries
+LIMIT 0, 1000
+: Running...
+[30, 13:46:11] SELECT * FROM step3.countries
+LIMIT 0, 1000
+: Fetching...
+[30, 13:46:11] SELECT * FROM step3.countries
+LIMIT 0, 1000
+: 214 row(s) returned
+[31, 13:47:01] create procedure findInternetArrivalByIso(in iso VARCHAR(8)) //PROCEDURE THAT RETURNS THE INTERNET ARRIVAL YEAR FOR COUNTRIES
+begin
+	select * from countries where Code = iso;
+end: Running...
+[31, 13:47:01] create procedure findInternetArrivalByIso(in iso VARCHAR(8))
+begin
+	select * from countries where Code = iso;
+end: 0 row(s) affected
+[32, 13:47:45] call step3.findInternetArrivalByIso('USA'): Running...
+[32, 13:47:45] call step3.findInternetArrivalByIso('USA'): Fetching...
+[32, 13:47:45] call step3.findInternetArrivalByIso('USA'): 1 row(s) returned //1990
+[33, 13:48:05] call step3.findInternetUsersByIsoAndYear('USA', 2003): Running...
+[33, 13:48:05] call step3.findInternetUsersByIsoAndYear('USA', 2003): Fetching...
+[33, 13:48:05] call step3.findInternetUsersByIsoAndYear('USA', 2003): 1 row(s) returned
+[34, 13:49:09] create procedure findInternetUsersByIsoAndYear(in iso VARCHAR(8), in ye INT)
+begin
+	select Internet_users, Country_name, Code from infrastructure where Code = iso and Year = ye; //alter the table to return the columns we want
+end: Running...
+[34, 13:49:09] create procedure findInternetUsersByIsoAndYear(in iso VARCHAR(8), in ye INT)
+begin
+	select Internet_users, Country_name, Code from infrastructure where Code = iso and Year = ye;
+end: Error Code: 1304. PROCEDURE findInternetUsersByIsoAndYear already exists
+[35, 13:49:21] DROP PROCEDURE `step3`.`findInternetUsersByIsoAndYear`: Running...
+[35, 13:49:21] DROP PROCEDURE `step3`.`findInternetUsersByIsoAndYear`: 0 row(s) affected
+[36, 13:49:23] create procedure findInternetUsersByIsoAndYear(in iso VARCHAR(8), in ye INT)
+begin
+	select Internet_users, Country_name, Code from infrastructure where Code = iso and Year = ye;
+end: Running...
+[36, 13:49:23] create procedure findInternetUsersByIsoAndYear(in iso VARCHAR(8), in ye INT)
+begin
+	select Internet_users, Country_name, Code from infrastructure where Code = iso and Year = ye;
+end: 0 row(s) affected
+[37, 13:49:50] call step3.findInternetUsersByIsoAndYear('USA', 2003): Running...
+[37, 13:49:50] call step3.findInternetUsersByIsoAndYear('USA', 2003): Fetching...
+[37, 13:49:50] call step3.findInternetUsersByIsoAndYear('USA', 2003): 1 row(s) returned //1990
+[38, 13:50:07] call step3.findInternetUsersByIsoAndYear('GBR', 2003): Running...
+[38, 13:50:07] call step3.findInternetUsersByIsoAndYear('GBR', 2003): Fetching...
+[38, 13:50:07] call step3.findInternetUsersByIsoAndYear('GBR', 2003): 1 row(s) returned //1990
+[39, 13:50:15] call step3.findInternetUsersByIsoAndYear('TUR', 2003): Running...
+[39, 13:50:15] call step3.findInternetUsersByIsoAndYear('TUR', 2003): Fetching...
+[39, 13:50:15] call step3.findInternetUsersByIsoAndYear('TUR', 2003): 1 row(s) returned //1993
+
