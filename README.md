@@ -1,4 +1,6 @@
-# Havuclar-CS306
+# CS306- Database Systems Havuclar group project
+
+## **“Analyzing the Relationship between Government, Freedom and Internet Accessibility Worldwide”**
 
 
 - Why did you select this data set ?
