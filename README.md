@@ -1,5 +1,5 @@
 # CS306- Database Systems Havuclar group project
-# Demo: https://youtu.be/q7yjRe46XeU
+## Demo: https://youtu.be/q7yjRe46XeU
 ### **“Analyzing the Relationship between Government, Freedom and Internet Accessibility Worldwide”**
 
 
@@ -27,7 +27,7 @@ By analyzing these factors, we gained insights into the internet access rate acr
     - Freedom of expression metrics were considered to evaluate the relationship between internet access and freedom of speech.
 
 - Show and explain your ER diagram
-<img width="631" alt="image" src="https://github.com/tansylu/Havuclar-CS306/assets/45488234/d52c3bc9-3439-4074-b273-320c3598dbf1">
+
 
 - Show your charts and discuss their stories if any.
 https://youtu.be/q7yjRe46XeU
